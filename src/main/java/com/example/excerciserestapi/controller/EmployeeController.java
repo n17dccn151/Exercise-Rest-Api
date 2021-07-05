@@ -38,7 +38,7 @@ public class EmployeeController {
 
 
     @PostMapping("/employee")
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee){
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee)throws BadRequestException{
         Employee saveEmployee = new Employee();
         try {
             saveEmployee = employeeRepository.save(employee);
@@ -53,7 +53,7 @@ public class EmployeeController {
 
     @PutMapping("/employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
-                                                   @Valid @RequestBody Employee employeeDetail) throws ResourceNotFoundException{
+                                                   @Valid @RequestBody Employee employeeDetail) throws ResourceNotFoundException, BadRequestException{
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new ResourceNotFoundException("employee not found for this id: " +employeeId));
 
